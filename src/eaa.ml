@@ -1,10 +1,3 @@
-(****************************Copyright note************************************)
-(*copyright by Maksim Kaganovich @ HOTHAMteam                                 *)
-(*date last modified: 18-jul-17                                               *)
-(*powered by MIT public licence                                               *)
-(*algorithm is describet in /doc folder                                       *)
-(****************************End of copyright note*****************************)
-
 let digit_array_of s = Str.split (Str.regexp "") s
 
 let replace l pos a  = List.mapi (fun i x -> if i = pos then a else x) l (*stolen from stackoverflow*)

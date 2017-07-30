@@ -9,6 +9,7 @@
 *Copyright by Kaganovich Maksim (c) 2017. Powered by the MIT public licence
 *)
 (*`Service` functions are represented below i.e. Custom operators and converting functions*)
+Random.init (int_of_float (Unix.time ()));;
 let failwith msg = raise (Failure msg);; 
 let (|>) x f = f x;;
 let (--) i j = let rec aux n acc = if n < i then acc else aux (n-1) (n :: acc) in aux j [];;

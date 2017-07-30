@@ -1,7 +1,8 @@
-# /bin/bash 
+#!/bin/bash
 
 echo "starting compilation..."
-cd /home/eliethewoody/Documents/QuasarIO/src
+PWD="`pwd`"
+echo "${PWD}"
 #rm ./*.cmi
 #rm ./*.cmo
 #rm ./*.o

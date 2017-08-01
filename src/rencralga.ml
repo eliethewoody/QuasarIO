@@ -64,16 +64,6 @@ let generate_headers length_of_message =
       | _ -> __make_header (num-1) ((List.map (fun _ -> (Random.int 7)+1) (0--7))::acc) in 
       (*Внимание: костыль! использование списка чисел для генерации нужного количества заголовков ln55*)
 if length_of_message > 0 then __make_header length_of_message [] else failwith "badarg";;
-let make_dict ~acii_number_start ~acii_number_end =   
-  let d = Hashtbl.create (acii_number_end-acii_number_start+1) in 
-    List.iter2 
-      (fun x y -> Hashtbl.add d x y) 
-        (List.map (fun z -> Char.chr z) (acii_number_start--acii_number_end)) 
-          (generate_headers (acii_number_end-acii_number_start+1));
-  d;;
-let make_latin_dict = make_dict ~acii_number_start:97 ~acii_number_end:122;;
-let encrypt_text_by_dict text_by_letters dict = 
-  List.map (fun symbol -> encoded_form_of symbol (Hashtbl.find dict symbol)) text_by_letters;;
 let decoded_form_of encoded_symbol header = 
   let inverted_acii = 
     (List.map (fun x -> string_of_int x) encoded_symbol)
@@ -87,4 +77,4 @@ let decoded_form_of encoded_symbol header =
       |> List.map (fun a -> Char.chr (int_of_string ("0b"^a))) in 
   List.hd replicated_chars;;
 let decrypt_text text_by_letters headers = 
-   List.map2 (fun symbol header -> decoded_form_of symbol header) text_by_letters headers
+  List.map2 (fun symbol header -> decoded_form_of symbol header) text_by_letters headers

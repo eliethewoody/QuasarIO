@@ -22,3 +22,4 @@ ocamlc -o project.dev unix.cma str.cma rencralga.cmo io.cmo core.cmo
 rm ../*.dev
 cp ./*.dev ../
 echo "done! executable file: project.dev"
+bash ../run.sh

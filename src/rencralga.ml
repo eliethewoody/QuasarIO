@@ -12,7 +12,7 @@
 Random.init (int_of_float (Unix.time ()));;
 let failwith msg = raise (Failure msg);; 
 let (|>) x f = f x;;
-let (--) i j = let rec aux n acc = if n < i then acc else aux (n-1) (n :: acc) in aux j [];;
+let (--) i j = let rec aux n accumulator = if n < i then accumulator else aux (n-1) (n :: accumulator) in aux j [];;
 let bin_of_dec x =
 	let rec __bin_of_dec y accumulator = 
 		match y with 
@@ -26,10 +26,10 @@ let oct_of_dec x =
       | _ -> __oct_of_dec (y/8) ((y mod 8)::accumulator)  in 
 int_of_string (String.concat "" (List.map (fun x -> string_of_int x) (__oct_of_dec x [])));;
 let fill_with_zeroes arr = 
-  let rec __fill acc = 
-    match List.length acc with 
-      | 8 -> acc
-      | _ -> __fill (0::acc) in 
+  let rec __fill accumulator = 
+    match List.length accumulator with 
+      | 8 -> accumulator
+      | _ -> __fill (0::accumulator) in 
   __fill arr;;
 let explode s =
   let rec exp i l =
@@ -58,10 +58,10 @@ let encoded_form_of character header =
 let encrypt_text text_by_letters headers = 
   List.map2 (fun symbol header -> encoded_form_of symbol header) text_by_letters headers;;
 let generate_headers length_of_message = 
-  let rec __make_header num acc =  
+  let rec __make_header num accumulator =  
     match num with 
-      | 0 -> acc
-      | _ -> __make_header (num-1) ((List.map (fun _ -> (Random.int 7)+1) (0--7))::acc) in 
+      | 0 -> accumulator
+      | _ -> __make_header (num-1) ((List.map (fun _ -> (Random.int 7)+1) (0--7))::accumulator) in 
       (*Внимание: костыль! использование списка чисел для генерации нужного количества заголовков ln55*)
 if length_of_message > 0 then __make_header length_of_message [] else failwith "badarg";;
 let decoded_form_of encoded_symbol header = 

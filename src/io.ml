@@ -46,10 +46,10 @@ let input_line_opt ic =
   try Some (input_line ic)
   with End_of_file -> None;;
 let read_lines ic =
-  let rec aux acc =
+  let rec aux accumulator =
     match input_line_opt ic with
-    | Some line -> aux (line::acc)
-    | None -> (List.rev acc)
+    | Some line -> aux (line::accumulator)
+    | None -> (List.rev accumulator)
   in
   aux [];;
 let lines_of_file filename =

@@ -16,15 +16,12 @@ ls -la
 echo "done!"
 echo "starting compilation..."
 echo "we are here: ${PWD}"
-ocamlc -c rencralga.mli
-ocamlc -c rencralga.ml
+ocamlc -c encralgb.mli
+ocamlc -c encralgb.ml
 ocamlc -c io.mli
 ocamlc -c io.ml
 ocamlc -c core.ml
-ocamlc -o project.dev unix.cma str.cma rencralga.cmo io.cmo core.cmo
-cp ./*.dev ../
-cd ..
-echo "we are here: ${PWD}"
+ocamlc -o project.dev unix.cma str.cma encralgb.cmo io.cmo core.cmo
 chmod a+x ./*.dev
 echo "done!"
 echo "removing source files from bin..."
@@ -39,5 +36,5 @@ ls -la
 cd ..
 echo "we are here: ${PWD}"
 echo "done!"
-./project.dev
+./bin/project.dev
 echo ""

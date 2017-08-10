@@ -8,22 +8,20 @@
 *Author  : Kaganovich Maksim <eliethewoody@ya.ru>
 *Copyright by Kaganovich Maksim (c) 2017. Powered by the MIT public licence
 *)
-open Rencralga;;
-let join_ints x = int_of_string (String.concat "" (List.map string_of_int x));;
-let split_ints x = List.map int_of_string (Str.split (Str.regexp "") (string_of_int x));;
+open Encralgb;;
 let encode_xor_message message key = 
   let rec xor_digits line accumulator = 
     match line with 
       | [] -> accumulator
-      | (digit::rest) -> xor_digits rest ((join_ints (List.map2 (fun a b -> a lxor b) 
-                                                        (fill_with_zeroes (bin_of_dec digit)) (fill_with_zeroes key)))::accumulator) in 
+      | (digit::rest) -> xor_digits rest ((Alg.join_ints (List.map2 (fun a b -> a lxor b) 
+                                                        (Alg.fill_with_zeroes (Alg.bin_of_dec digit)) (Alg.fill_with_zeroes key)))::accumulator) in 
   List.map (fun a -> xor_digits a []) message;;
 let decode_xor_message message key = 
   let rec xor_digits line accumulator = 
     match line with 
       | [] -> accumulator
-      | (digit::rest) -> xor_digits rest ((int_of_string ("0b"^(string_of_int (join_ints (List.map2 (fun a b -> a lxor b) 
-                                            (fill_with_zeroes (split_ints digit)) (fill_with_zeroes key))))))::accumulator) in
+      | (digit::rest) -> xor_digits rest ((Alg.dec_of_bin (List.map2 (fun a b -> a lxor b) 
+                                            (Alg.fill_with_zeroes (Alg.split_ints digit)) (Alg.fill_with_zeroes key)))::accumulator) in
   List.map (fun a -> xor_digits a []) message;;
 let record_message message path = 
   let elem l = String.concat " " (List.map string_of_int l) in

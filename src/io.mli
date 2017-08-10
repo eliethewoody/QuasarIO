@@ -1,5 +1,3 @@
-val join_ints          : int list      -> int
-val split_ints         : int           -> int list
 val encode_xor_message : int list list -> int list      -> int list list 
 val decode_xor_message : int list list -> int list      -> int list list
 val record_message     : int list list -> string                         -> unit
